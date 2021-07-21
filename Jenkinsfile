@@ -1,7 +1,15 @@
 pipeline {
   agent any
+  triggers {
+      pollSCM "* * * * *"
+  }
   tools {
+    
      maven 'M2_HOME'
+  }
+  environment {
+    registry = "cabral2604/repository_name"
+    registryCredential = 'dockerhub'
   }
   stages {
     stage('Build') {
@@ -21,13 +29,7 @@ pipeline {
     stage('deploy') {
       steps {
         echo "deploy step"
-        sleep 10
-      }
-    }
-    stage('docker') {
-      steps {
-        echo "image step"
-        sleep 10
+        
       }
     }
   }
